@@ -23,7 +23,7 @@
           <th scope="col">Series</th>
           <th scope="col">Sale date</th>
           <th scope="col">Type</th>          
-          <th scope="col">Info</th>          
+          <th scope="col"></th>          
         </tr>
       </thead>
       <tbody>
@@ -39,12 +39,24 @@
           <th scope="col">{{$comic->sale_date}}</th>
           <th scope="col">{{$comic->type}}</th>  
           <th scope="col">
-            <a href="{{ route('comic.show', $comic->id) }}">
+            <div class="d-flex">
+
+            <a href="{{ route('comic.show', $comic->id) }}" class="mx-1">
               <i class="fa-solid fa-eye"></i>
             </a>
-            <a href="{{ route('comic.edit', $comic) }}">
+            <a href="{{ route('comic.edit', $comic) }}" class="mx-1">
               <i class="fa-solid fa-pencil"></i>
             </a>
+            <form action="{{route('comic.destroy', $comic)}}" method="POST" class="mx-1">
+              @csrf
+              @method('DELETE')
+              <button class="btn m-0 p-0">
+                <i class="fa-solid fa-trash text-danger"></i>
+              </button>
+              
+            </form>
+          </div>
+            
           </th>  
         </tr>
         @endforeach
