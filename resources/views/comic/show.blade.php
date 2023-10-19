@@ -1,7 +1,11 @@
 @extends('layouts.app')
 
 @section('main-content')
-    <div class="container">
+    <div class="container mt-5">
+        <a href="{{ route('comic.index') }}" class="">
+            <button class="btn btn-secondary mb-3">Return to the list</button>
+        </a>
+
         <div class="row">
             <div class="col-4">
                 <img src="{{$comic->thumb}}" alt="">
