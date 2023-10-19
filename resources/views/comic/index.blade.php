@@ -47,14 +47,38 @@
             <a href="{{ route('comic.edit', $comic) }}" class="mx-1">
               <i class="fa-solid fa-pencil"></i>
             </a>
-            <form action="{{route('comic.destroy', $comic)}}" method="POST" class="mx-1">
-              @csrf
-              @method('DELETE')
-              <button class="btn m-0 p-0">
-                <i class="fa-solid fa-trash text-danger"></i>
-              </button>
-              
-            </form>
+            
+            <!-- Button trigger modal -->
+            <a href="#" data-bs-toggle="modal" data-bs-target="#deleteModal-{{$comic->id}}" class="mx-1">
+              <i class="fa-solid fa-trash text-danger"></i>
+            </a>
+
+            <!-- Modal -->
+            <div class="modal fade" id="deleteModal-{{$comic->id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Eliminate Comic</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body">
+                    Are you sure you want to eliminate the comic "{{$comic->title}}"
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <form action="{{route('comic.destroy', $comic)}}" method="POST" class="mx-1">
+                      @csrf
+                      @method('DELETE')
+                      
+                      <button class="btn btn-danger">Eliminate</button>
+                      
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            
           </div>
             
           </th>  
