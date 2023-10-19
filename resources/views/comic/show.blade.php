@@ -5,6 +5,9 @@
         <a href="{{ route('comic.index') }}" class="">
             <button class="btn btn-secondary mb-3">Return to the list</button>
         </a>
+        <a href="{{ route('comic.edit', $comic) }}" class="">
+            <button class="btn btn-warning mb-3">Edit comic</button>
+        </a>
 
         <div class="row">
             <div class="col-4">
