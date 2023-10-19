@@ -8,6 +8,7 @@
   <title>{{ env('APP_NAME') }}</title>
 
   <!-- Styles -->
+  @yield('css')
   @vite('resources/js/app.js')
 </head>
 
