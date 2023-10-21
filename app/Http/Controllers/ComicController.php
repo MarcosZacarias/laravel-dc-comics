@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Comic;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class ComicController extends Controller
 {
@@ -36,7 +37,7 @@ class ComicController extends Controller
      */
     public function store(Request $request)
     {
-        $data= $request->all();
+        $data= $this->validation($request->all());
         $newComic = new Comic();
         $newComic->fill($data);
         $newComic->save();
@@ -75,7 +76,7 @@ class ComicController extends Controller
      */
     public function update(Request $request, Comic $comic)
     {
-        $data = $request->all();
+        $data = $this->validation($request->all());
 
         $comic->update($data);
 
@@ -93,5 +94,47 @@ class ComicController extends Controller
         $comic->delete();
 
         return redirect()->route('comic.index');
+    }
+
+    private function validation($data){
+        $validator = Validator::make(
+            $data, 
+            [
+                'title'=>'required|string|max:50',
+                'description'=>'nullable|string',
+                'thumb'=>'required|string|url',
+                'price'=>'required|integer|',
+                'series'=>'required|string|max:25',
+                'sale_date'=>'required|date',
+                'type'=>'required|string|in:graphic novel, comic book',
+            ],
+            [
+                'title.required'=>'The title is obligatory',
+                'title.string' => 'The title must be a string',
+                'title.max' => 'The title must be a maximum of 50 characters',
+
+                'description.string'=> 'The description must be a string',
+
+                'thumb.required' => 'The image path is obligatory',
+                'thumb.string' => 'The image path must be a string',
+                'thumb.url' => 'The image path must be a URI',
+
+                'price.required' => 'The price is obligatory',
+                'price.integer' => 'The price must be a number',
+
+                'series.required'=>'The series is obligatory',
+                'series.string' => 'The series must be a string',
+                'series.max' => 'The series must be a maximum of 25 characters',
+
+                'sale_date.required'=>'The sale date is obligatory',
+                'sale_date.date'=>'The sale date must be a date',
+
+                'type.required' => 'The type date is obligatory',
+                'type.string' => 'The type must be a string',
+                'type.in' => 'The type must have a value between "graphic novel", " comic book"',
+                
+            ],
+        )->validate();
+        return $validator;
     }
 }
