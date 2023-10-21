@@ -102,11 +102,15 @@
                             @enderror                   
                         </div>
                         <div class="col-3">
-                            <label for="type" class="form-label">Type</label>
+                            <label for="type" class="form-label @error('type') is-invalid @enderror">Type</label>
                             <select name="type" id="type" class="form-select">
-                                <option value="graphic novel">Graphic Novel</option>
-                                <option value="comic book">Comic Book</option>
+                                <option value="select" @if (old('type') == 'select') selected @endif>Select a type</option>
+                                <option value="graphic novel" @if (old('type') == 'graphic novel') selected @endif>Graphic Novel</option>
+                                <option value="comic book" @if (old('type') == 'comic book') selected @endif>Comic Book</option>
                             </select>
+                            @error('type')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror    
                         </div>
                         <div class="col-3">
                             <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Create</button>
